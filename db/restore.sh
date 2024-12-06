@@ -1,3 +1,3 @@
 #!/usr/bin/sh
-mariadb gamedb -uroot -pValeurDeVotreChoix < /root/init.sql
+mariadb Havenly -uroot -pHJVH628h-BIIBUé3-biibuHbé! < /root/init.sql
 echo "Restauration terminée"
