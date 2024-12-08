@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <title><?php echo $title ?></title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .admin {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .users {
+            display: flex;
+            flex-direction: column;
+            margin: 20px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: whitesmoke;
+            padding: 20px;
+            width: 500px;
+            transition: 0.5s ease all;
+            
+        }
+
+        .users h2 {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .users ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .users ul li {
+            margin: 5px;
+            padding: 5px;
+        }
+
+        .users:hover {
+            background-color: #444;
+            text-decoration: none;
+            color: chocolate;
+        }
+
+        .users-title {
+            margin: 20px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: whitesmoke;
+            text-align: center;
+        }
+
+        .acceuil {
+            margin: 20px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: whitesmoke;
+            text-align: center;
+        }
+
+        .admin-link {
+            margin: 5px;
+            padding: 5px;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: whitesmoke;
+            text-align: center;
+            transition: 1s ease all;
+        }
+
+        .admin-link:hover {
+            background-color: #444;
+            text-decoration: none;
+            color: chocolate;
+        }
+
+        .admin-link a {
+            color: whitesmoke;
+            text-decoration: none;
+        }
+
+        .home {
+            display: flex;
+            margin: 20px;
+            width: 100px;
+            margin-top: 20px;
+            padding: 5px;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: whitesmoke;
+            text-align: center;
+            transition: 1s ease all;
+        }
+
+        .home:hover {
+            background-color: #444;
+            text-decoration: none;
+            color: chocolate;
+        }
+
+        .add-categories {
+            margin: 20px;
+            padding-left: 25px;
+            padding-right: 25px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: green;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: whitesmoke;
+            text-align: center;
+            transition: 1s ease all;
+        }
+
+        .add-categories:hover {
+            background-color: #00FF00;
+            text-decoration: none;
+            ;
+        }
+
+        .categories-title {
+            margin: 20px;
+            padding: 20px;
+           
+            text-align: center;
+        }
+
+        .liste {
+            display: flex;
+            flex-direction: row;
+            color: whitesmoke;
+            transition: 0.5s ease all;
+        }
+
+        .delete {
+            display: flex;
+            background-color: red;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: whitesmoke;
+            text-align: center;
+            transition: 1s ease all;
+            padding-left: 25px;
+            padding-right: 25px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+
+        .delete:hover {
+            background-color: #B8001F;
+            text-decoration: none;
+            color: white;
+            
+        }
+
+        .categorie-form {
+            display: flex;
+            flex-direction: row;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: black;
+            padding: 20px;
+            width: 500px;
+            transition: 0.5s ease all;
+        }
+    </style>
+</head>
+<body>

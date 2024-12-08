@@ -7,7 +7,7 @@ services:
     ports: 
       - "80:80" # On utilise le port 80 de l'extérieur vers le port 80 du container
     volumes:
-      - ./www:/var/www/html # afin d'éviter de rebuild on câble le répertoire ./www vers le docker
+      - ./app:/var/www/app # afin d'éviter de rebuild on câble le répertoire ./www vers le docker
     environment:
       PHP_ERROR_REPORTING: "E_ALL" # on affiche le debug PHP
       PHP_DISPLAY_ERRORS: "On" # et les erreurs
