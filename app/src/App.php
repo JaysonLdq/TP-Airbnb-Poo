@@ -60,7 +60,12 @@ final class App
 
         // -- Pages communes --
         $this->router->get( '/', [ PageController::class, 'index' ] );
-        $this->router->get( '/mentions-legales', [ PageController::class, 'legalNotice' ]);
+        $this->router->get( '/rentals', [ PageController::class, 'location' ]);
+
+        // -- Pages utilisateurs --
+        $this->router->get( '/profile', [ PageController::class, 'profile' ]);
+        $this->router->get( '/login', [ PageController::class, 'login' ]);
+        $this->router->get( '/login/connexion', [ PageController::class, 'register' ]);
         
         // TODO: Groupe Visiteurs (non-connectés)
 

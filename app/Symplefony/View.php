@@ -18,7 +18,7 @@ class View
         $data = [];
 
         if( !$is_complete ) {
-            $data['title'] = 'Page inexistante - Autodingo.com';
+            $data['title'] = 'Page inexistante - Havenly.com';
         }
 
         $view = new self( '_errors:'. $code, $is_complete );
