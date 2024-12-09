@@ -1,9 +1,7 @@
-<h1>S'inscrire</h1>
-
- 
-
-<!-- Formulaire d'inscription -->
-
+<div>
+    <a href="/admin/users">🔙 Retour</a>
+</div>
+<h1>Ajouter un nouvel utilisateur</h1>
 <form action="/admin/users" method="post" novalidate>
     <div>
         <label for="input-email">Email :</label>
@@ -26,16 +24,6 @@
         <input type="tel" name="phone_number" id="input-phone">
     </div>
     <div>
-        <input type="submit" value="S'inscrire">
+        <input type="submit" value="Ajouter">
     </div>
-
-
-    <!-- Si l'utilisateur à déja un compte -->
-    <p>Vous avez déjà un compte ? <a href="/login/connexion">Connectez-vous</a></p>
-    <p>Vous voulez louer vos biens ?</p>
-    <label for="">Cochez cette case : </label>
-    <input type="checkbox" name="renter" id="renter">
 </form>
-
-
-

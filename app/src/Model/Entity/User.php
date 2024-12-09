@@ -8,9 +8,9 @@ class User extends Entity
 {
     protected string $password;
     public function getPassword(): string { return $this->password; }
-    public function setPassword( int $value ): self
+    public function setPassword( string $value ): self
     {
-        $this->id = $value;
+        $this->password = password_hash($value, PASSWORD_DEFAULT);
         return $this; // Permet de "chaîner" les appels aux setters: $toto->setId(2)->setName('toto'), etc.
     }
    

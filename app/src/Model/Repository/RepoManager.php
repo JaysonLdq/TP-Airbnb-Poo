@@ -15,8 +15,7 @@ class RepoManager
 
     private CategoryRepository $category_repo;
     public function getCategoryRepo(): CategoryRepository { return $this->category_repo; }
-    private CarRepo $car_repo;
-    public function getCarRepo(): CarRepo { return $this->car_repo; }
+
 
     private function __construct()
     {
@@ -24,7 +23,7 @@ class RepoManager
 
         $this->user_repo = new UserRepository( $pdo );
         $this->category_repo = new CategoryRepository( $pdo );
-        $this->car_repo = new CarRepo( $pdo );
+    
         
     }
 

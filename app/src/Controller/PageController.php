@@ -37,39 +37,6 @@ class PageController extends Controller
        
     }
 
-    //Page de profil
-    public function profile(): void
-    {
-        $view = new View( 'page:profile:profil' );
+    
 
-        $data = [
-            'title' => 'Mon profil - Havenly.com'
-        ];
-
-        $view->render( $data );
-    }
-
-    //Page de création de compte
-    public function login(): void
-    {
-        $view = new View( 'page:login:register' );
-
-        $data = [
-            'title' => "S'enregistrer - Havenly.com"
-        ];
-
-        $view->render( $data );
-    }
-
-    //Page de connexion
-    public function register(): void
-    {
-        $view = new View( 'page:connexion:connexion' );
-
-        $data = [
-            'title' => 'Se connecter - Havenly.com'
-        ];
-
-        $view->render( $data );
-    }
 }

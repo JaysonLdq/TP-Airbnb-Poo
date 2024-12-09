@@ -16,6 +16,7 @@ use MiladRahimi\PhpRouter\Routing\Attributes;
 use Symplefony\View;
 
 use App\Controller\AdminController;
+use App\Controller\LocationController;
 use App\Controller\PageController;
 use App\Controller\UserController;
 use App\Middleware\AdminMiddleware;
@@ -60,12 +61,12 @@ final class App
 
         // -- Pages communes --
         $this->router->get( '/', [ PageController::class, 'index' ] );
-        $this->router->get( '/rentals', [ PageController::class, 'location' ]);
+        $this->router->get( '/rentals', [ LocationController::class, 'location' ]);
 
         // -- Pages utilisateurs --
-        $this->router->get( '/profile', [ PageController::class, 'profile' ]);
-        $this->router->get( '/login', [ PageController::class, 'login' ]);
-        $this->router->get( '/login/connexion', [ PageController::class, 'register' ]);
+        $this->router->get( '/profile', [ UserController::class, 'profile' ]);
+        $this->router->get( '/login', [ UserController::class, 'login' ]);
+        $this->router->get( '/login/connexion', [ UserController::class, 'register' ]);
         
         // TODO: Groupe Visiteurs (non-connectés)
 

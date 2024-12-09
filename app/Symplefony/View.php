@@ -55,6 +55,10 @@ class View
 
         require_once $this->getTemplatePath();
 
+
+       
+    
+
         if( !$this->is_complete ) {
             require_once self::COMMON_PATH .'bottom.phtml';
         }

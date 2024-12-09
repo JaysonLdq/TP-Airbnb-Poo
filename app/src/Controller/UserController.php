@@ -17,17 +17,41 @@ class UserController extends Controller
     /**
      * Pages publiques
      */
-    // Visiteur: Affichage du formulaire de création de compte
-    public function displaySubscribe(): void
-    {
-        $view = new View( 'user:create-account' );
+   //Page de création de compte
+   public function login(): void
+   {
+       $view = new View( 'page:login:register' );
 
-        $data = [
-            'title' => 'Créer mon compte - Havenly.com'
-        ];
+       $data = [
+           'title' => "S'enregistrer - Havenly.com"
+       ];
 
-        $view->render( $data );
-    }
+       $view->render( $data );
+   }
+
+   //Page de connexion
+   public function register(): void
+   {
+       $view = new View( 'page:connexion:connexion' );
+
+       $data = [
+           'title' => 'Se connecter - Havenly.com'
+       ];
+
+       $view->render( $data );
+   }
+
+   //Page de profil
+   public function profile(): void
+   {
+       $view = new View( 'page:profile:profil' );
+
+       $data = [
+           'title' => 'Mon profil - Havenly.com'
+       ];
+
+       $view->render( $data );
+   }
 
     // Visiteur: Traitement du formulaire de création de compte
     public function processSubscribe(): void
@@ -71,7 +95,7 @@ class UserController extends Controller
     // Admin: Liste
     public function index(): void
     {
-        $view = new View( 'user:admin:list' );
+        $view = new View( 'page:home' );
 
 
         $data = [
