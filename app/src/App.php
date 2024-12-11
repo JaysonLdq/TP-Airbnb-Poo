@@ -17,6 +17,7 @@ use Symplefony\View;
 
 use App\Controller\AdminController;
 use App\Controller\LocationController;
+use App\Controller\LogementController;
 use App\Controller\PageController;
 use App\Controller\UserController;
 use App\Middleware\AdminMiddleware;
@@ -41,7 +42,9 @@ final class App
 
     // Démarrage de l'application
     public function start(): void
-    {
+
+    {    
+        session_start();
         $this->registerRoutes();
         $this->startRouter();
     }
@@ -60,15 +63,30 @@ final class App
         $this->router->pattern( 'id', '\d+' );
 
         // -- Pages communes --
-        $this->router->get( '/', [ PageController::class, 'index' ] );
+        $this->router->get( '/', [ PageController::class, 'indexLogement' ] );
         $this->router->get( '/rentals', [ LocationController::class, 'location' ]);
+        $this->router->get( '/biens', [ UserController::class, 'biens' ]);
+        $this->router->post( '/biens', [ UserController::class, 'createBiens' ]);
+        $this->router->get( '/biens/{id}', [ UserController::class, 'showBiens' ]);
+
+       
+
+        
 
         // -- Pages utilisateurs --
         $this->router->get( '/profile', [ UserController::class, 'profile' ]);
-        $this->router->get( '/login', [ UserController::class, 'login' ]);
-        $this->router->get( '/login/connexion', [ UserController::class, 'register' ]);
+      
+
+
+        $this->router->get( '/users/connexion', [ UserController::class, 'register' ]);
+        $this->router->post( '/users/connexion', [ UserController::class, 'login' ]);
+       
+       
+        $this->router->get( '/logout', [ UserController::class, 'logout' ]);
         
         // TODO: Groupe Visiteurs (non-connectés)
+        $this->router->get( '/users/add', [ UserController::class, 'add' ] );
+        $this->router->post( '/users/add', [ UserController::class, 'create' ] );
 
         // -- Pages d'admin --
         $adminAttributes = [
@@ -76,18 +94,31 @@ final class App
             Attributes::MIDDLEWARE => [ AdminMiddleware::class ]
         ];
 
+         // -- Locations --
+            // Ajout
+            $this->router->get( '//add', [ LocationController::class, 'add' ] );
+            $this->router->post( '/rentals', [ LocationController::class, 'create' ] );
+
+            // Liste
+            $this->router->get( '/rentals', [ LocationController::class, 'index' ]);
+            // Détail
+            $this->router->get( '/rentals/{id}', [ LocationController::class, 'show' ] );
+
         $this->router->group( $adminAttributes, function( Router $router ) {
             $router->get( '', [ AdminController::class, 'dashboard' ]);
 
             // -- User --
             // Ajout
-            $router->get( '/users/add', [ UserController::class, 'add' ] );
-            $router->post( '/users', [ UserController::class, 'create' ] );
+            // $router->get( '/users/add', [ UserController::class, 'add' ] );
+            // $router->post( '/users', [ UserController::class, 'create' ] );
 
             // Liste
             $router->get( '/users', [ UserController::class, 'index' ]);
             // Détail
             $router->get( '/users/{id}', [ UserController::class, 'show' ] );
+
+            
+
            
         });
     }

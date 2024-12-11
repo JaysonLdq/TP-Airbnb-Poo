@@ -1,1 +1,19 @@
-<h1>Mon profile</h1>
+<?php
+
+
+
+
+// Vérifier si l'utilisateur est bien connecté en utilisant 'user_id' comme clé de session
+if (isset($_SESSION['id'])) {
+    // Récupérer les informations de l'utilisateur depuis la session
+    $userId = $_SESSION['id'];
+    $userEmail = $_SESSION['email']?? 'Non renseigné';
+    $userFirstname = $_SESSION['firstname']?? 'Non renseigné';
+    $userLastname = $_SESSION['lastname'] ?? 'Non renseigné';
+
+    // Afficher les informations de l'utilisateur
+    echo "<h1>Mon Profil</h1>";
+    echo "<p><strong>Prénom :</strong> " . htmlspecialchars($userFirstname) . "</p>";
+    echo "<p><strong>Nom :</strong> " . htmlspecialchars($userLastname) . "</p>";
+    echo "<p><strong>Email :</strong> " . htmlspecialchars($userEmail) . "</p>";
+}

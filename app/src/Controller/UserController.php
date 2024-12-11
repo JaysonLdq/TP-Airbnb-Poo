@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
+use App\Model\Entity\Logement;
 use App\Model\Entity\User;
 use App\Model\Repository\RepoManager;
 use App\Model\Repository\UserRepository;
 use Laminas\Diactoros\ServerRequest;
-
+use PDO;
 use Symplefony\Controller;
 use Symplefony\View;
 
@@ -18,15 +19,43 @@ class UserController extends Controller
      * Pages publiques
      */
    //Page de création de compte
-   public function login(): void
-   {
-       $view = new View( 'page:login:register' );
+   public function login(ServerRequest $request): void
+    {
 
-       $data = [
-           'title' => "S'enregistrer - Havenly.com"
-       ];
+     // Récupérer les données du formulaire
+     $user_data = $request->getParsedBody();
+    
 
-       $view->render( $data );
+
+
+     // Vérifier si les données sont présentes
+    if (isset($user_data['email']) && isset($user_data['password'])) {
+        // Charger le repository de l'utilisateur
+        $repo = RepoManager::getRM()->getUserRepo();
+
+       // Récupérer l'utilisateur par email
+         $user = $repo->getByEmail($user_data['email']);
+
+         // Vérifier si l'utilisateur existe et si le mot de passe est correct
+         if ($user && password_verify($user_data['password'], $user->getPassword())) {
+             // Si la connexion est réussie, l'utilisateur est authentifié
+             // Stocker les informations utilisateur dans la session
+             $_SESSION['id'] = $user->getId();  // Stocke l'ID de l'utilisateur dans la session
+             $_SESSION['email'] = $user->getEmail();  // Stocke l'email de l'utilisateur dans la session
+             $_SESSION['firstname'] = $user->getFirstname();  // Stocke le prénom de l'utilisateur
+            
+
+             // Rediriger l'utilisateur vers la page d'accueil ou profil
+             header('Location: /');  // Redirige vers la page du profil
+             exit(); 
+         } else {
+             // Si l'utilisateur n'existe pas ou le mot de passe est incorrect
+             echo "Email ou mot de passe incorrect.";
+         }
+     } else {
+         // Si les champs sont vides
+         echo "Veuillez remplir tous les champs.";
+    }
    }
 
    //Page de connexion
@@ -66,7 +95,7 @@ class UserController extends Controller
     // Admin: Affichage du formulaire de création d'un utilisateur
     public function add(): void
     {
-        $view = new View( 'user:admin:create' );
+        $view = new View( 'page:login:register' );
 
         $data = [
             'title' => 'Ajouter un utilisateur'
@@ -127,4 +156,33 @@ class UserController extends Controller
 
         $view->render( $data );
     }
+
+     //page de biens
+     public function biens(): void
+     {
+         $view = new View( 'page:profile:biens:biens' );
+ 
+         $data = [
+             'title' => 'Mes biens - Havenly.com'
+         ];
+ 
+         $view->render( $data );
+     }
+
+     public function createBiens( ServerRequest $request ): void
+     {
+        $logement_data = $request->getParsedBody();
+    
+        
+
+        $logement_created = RepoManager::getRM()->getLogementRepo()->createBien( $logement_data );
+
+        if( is_null( $logement_created ) ) {
+            // TODO: gérer une erreur
+            $this->redirect( '/biens' );
+        }
+
+        $this->redirect( '/biens' );
+        
+     }
 }

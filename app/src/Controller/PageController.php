@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\Repository\RepoManager;
 use PDO;
 
 use Symplefony\Controller;
@@ -36,6 +37,23 @@ class PageController extends Controller
 
        
     }
+
+    public function indexLogement(): void
+    {
+        // Récupérer les logements depuis le repository
+        $logements = RepoManager::getRM()->getLogementRepo()->getAll();
+
+        // Passer les logements à la vue
+        $view = new View('page:home');
+        $data = [
+            'title' => 'Liste des logements',
+            'logements' => $logements
+        ];
+
+        // Rendre la vue avec les données
+        $view->render($data);
+    }
+
 
     
 

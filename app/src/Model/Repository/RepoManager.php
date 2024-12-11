@@ -16,6 +16,9 @@ class RepoManager
     private CategoryRepository $category_repo;
     public function getCategoryRepo(): CategoryRepository { return $this->category_repo; }
 
+    private LogementRepository $logement_repo;
+    public function getLogementRepo(): LogementRepository { return $this->logement_repo; }
+
 
     private function __construct()
     {
@@ -23,6 +26,7 @@ class RepoManager
 
         $this->user_repo = new UserRepository( $pdo );
         $this->category_repo = new CategoryRepository( $pdo );
+        $this->logement_repo = new LogementRepository( $pdo );
     
         
     }

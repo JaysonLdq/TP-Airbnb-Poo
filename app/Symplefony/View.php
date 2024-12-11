@@ -49,10 +49,10 @@ class View
         // Démarrage du cache de réponse
         ob_start();
 
+
         if( !$this->is_complete ) {
             require_once self::COMMON_PATH .'top.phtml';
         }
-
         require_once $this->getTemplatePath();
 
 

@@ -50,6 +50,14 @@ class UserModel extends Entity
         return $this;
     }
 
+    protected string $role_id;
+    public function getRole(): string { return $this->role_id; }
+    public function setRole( int $value ): self
+    {
+        $this->role_id = $value;
+        return $this;
+    }
+
 
     /* Crud: Create */
     public static function create( self $user ): ?self
@@ -73,7 +81,8 @@ class UserModel extends Entity
             'email' => $user->getEmail(),
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
-            'phone_number' => $user->getPhoneNumber()
+            'phone_number' => $user->getPhoneNumber(),
+
         ]);
 
         // Si echec de l'insertion
