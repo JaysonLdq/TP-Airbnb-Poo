@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 
     <title><?php
 
@@ -21,19 +21,58 @@ SessionController::start();  // Démarre la session si elle n'est pas déjà act
 ?>
 
 
-<div class="navbar">
-        <nav>
-            <ul>
-                <li><a href="/">Accueil</a></li>
-                <ul>Profils
-                    <li><a href="/profile">Mon profile</a></li>
-                    <li><a href="/profile">Mes locations</a></li>
-                    <li><a href="/biens">Mes biens</a></li>
-                </ul>
-                <li><a href="/users/connexion">Connexion</a></li>
-            </ul>
-        </nav>
-</div>
- 
+<header class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-left">
+      <a href="/" class="logo">
+      <img src="../../../public/logo/paysage.jpeg" alt="Logo" />
+
+
+
+
+
+    </div>
+
+    <div class="navbar-center">
+      <div class="search-bar">
+        <input type="text" placeholder="Rechercher..." />
+        <button type="submit" class="search">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+
+    <nav class="navbar-right">
+
+      <div class="nav-user">
+      <?php
+        // Vérifie que la session contient bien les données
+        if (isset($_SESSION['firstname'])) {
+            $firstname = $_SESSION['firstname'];
+            ?>
+            <p>Bonjour <?php echo htmlspecialchars($firstname); ?></p>
+            <?php
+        } else {
+            $firstname = ''; // Valeur par défaut si la clé n'est pas présente
+        }
+      ?>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/">Accueil</a></li>
+        <li class="dropdown">
+          <a href="#">Profils</a>
+          <ul class="dropdown-content">
+            <li><a href="/profile">Mon profil</a></li>
+            <li><a href="/profile">Mes locations</a></li>
+            <li><a href="/biens">Mes biens</a></li>
+          </ul>
+        </li>
+        <li><a href="/users/connexion">Connexion</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
 
 

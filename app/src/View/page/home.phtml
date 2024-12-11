@@ -1,52 +1,23 @@
+
 <h1>Havenly</h1>
 
-<?php
-// Vérifie que la session contient bien les données
-if (isset($_SESSION['firstname'])) {
-    $firstname = $_SESSION['firstname'];
-    ?>
-    <p>Bonjour <?php echo htmlspecialchars($firstname); ?></p>
-    <?php
-} else {
-    $firstname = ''; // Valeur par défaut si la clé n'est pas présente
-}
-?>
 
 <h1>Liste des logements</h1>
 
-<?php if (isset($logements) && !empty($logements)): ?>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Image</th> <!-- Nouvelle colonne pour afficher l'image -->
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($logements as $logement): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($logement->getId()); ?></td>
-                    <td><?php echo htmlspecialchars($logement->getTypeId()); ?></td>
-                    <td><?php echo htmlspecialchars($logement->getAdresseId()); ?></td>
-                    <td><?php echo htmlspecialchars($logement->getProprietaireId()); ?></td>
-                    <td><?php echo htmlspecialchars($logement->getPrix()); ?></td>
-                    <td><?php echo htmlspecialchars($logement->getDateAdded()); ?></td>
-                    <td>
-                        <!-- Affichage de l'image -->
-                        <img src="/image/<?php echo htmlspecialchars($logement->getImage()); ?>" alt="Image du logement" style="width: 100px; height: auto;">
-                    </td>
-                    <td>
-                        <a href="/logements/<?php echo $logement->getId(); ?>">Voir</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-<?php else: ?>
-    <p>Aucun logement trouvé.</p>
-<?php endif; ?>
-
-<?php
+<div class="vignettes">
+    <?php if (isset($logements) && !empty($logements)): ?>
+        <?php foreach ($logements as $logement): ?>
+            <div class="vignette">
+                <img src="/image/<?php echo htmlspecialchars($logement->getImage()); ?>" alt="Image du logement">
+                <div class="vignette-content">
+                    <h3><?php echo htmlspecialchars($logement->getTypeId()); ?></h3>
+                    <p><?php echo htmlspecialchars($logement->getDescription()); ?></p>
+                    <p class="price"><?php echo htmlspecialchars($logement->getPrix()); ?> €</p>
+                    <a href="/logements/<?php echo $logement->getId(); ?>">Voir plus</a>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>Aucun logement trouvé.</p>
+    <?php endif; ?>
+</div>

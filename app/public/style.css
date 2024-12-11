@@ -1,0 +1,337 @@
+/* Style CSS moderne et cosy pour Havenly */
+
+/* Couleurs principales */
+:root {
+    --primary-color: #1E88E5; /* Bleu vif pour une touche d'énergie */
+    --secondary-color: #64B5F6; /* Bleu clair apaisant */
+    --accent-color: #BBDEFB; /* Bleu pastel pour adoucir */
+    --background-color: #F0F8FF; /* Blanc avec une légère teinte bleue */
+    --text-color: #1A237E; /* Bleu marine pour une bonne lisibilité */
+    --border-color: #B3E5FC; /* Bleu clair pour les bordures */
+    --hover-color: #1976D2; /* Couleur de survol pour les interactions */
+}
+
+/* Général */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+/* Liens */
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--hover-color);
+}
+
+/* Formulaire */
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
+input[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--hover-color);
+}
+
+/* Table des logements */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+table th {
+    background-color: var(--primary-color);
+    color: white;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+table tr:hover {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+}
+
+/* Images dans la table */
+table img {
+    width: 100px;
+    border-radius: 10px;
+}
+
+
+
+/* Conteneur principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 20px 0;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 14px;
+    margin-top: 30px;
+}
+
+footer a {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+footer a:hover {
+    color: var(--hover-color);
+}
+
+/* Section des vignettes */
+.vignettes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 vignettes par ligne */
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.vignette {
+    width: 250px; /* Taille fixe pour toutes les vignettes */
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vignette:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.vignette img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.vignette-content {
+    padding: 15px;
+}
+
+.vignette h3 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--primary-color);
+}
+
+.vignette p {
+    font-size: 14px;
+    color: var(--text-color);
+    margin: 10px 0;
+}
+
+.vignette .price {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.vignette a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.vignette a:hover {
+    background-color: var(--hover-color);
+}
+
+
+
+/* Style général pour la navbar */
+.navbar {
+    background-color: #00BFFF; /* Bleu clair */
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Style pour la partie gauche avec logo */
+.navbar-left .logo img {
+    height: 100px; 
+}
+
+/* Barre de recherche */
+.navbar-center .search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-center .search-bar input {
+    padding: 5px;
+    border-radius: 4px;
+    border: none;
+    width: 200px;
+    margin-right: 5px;
+    margin-top: 14px;
+}
+
+.navbar-center .search-bar button {
+    background-color: #FFD700; /* Jaune doré */
+    border: none;
+    padding: 14px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: white;
+}
+
+.navbar-center .search-bar button i {
+    font-size: 16px;
+}
+
+/* Alignement des éléments à droite */
+.navbar-right .nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end; /* Aligner à droite */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-right .nav-links li {
+    margin-left: 20px; /* Espacement entre les éléments */
+}
+
+.navbar-right .nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.navbar-right .nav-links a:hover {
+    color: rgb(191, 232, 239); 
+}
+
+/* Menu déroulant pour Profils */
+.dropdown {
+    position: relative;
+}
+
+.dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #00BFFF;
+    min-width: 160px;
+    z-index: 1;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content li {
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.dropdown-content a {
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #00BFFF; 
+}
+
+p {
+    margin: 0;
+    color: white;
+} 
