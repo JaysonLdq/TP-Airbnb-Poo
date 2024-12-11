@@ -6,6 +6,9 @@ CREATE TABLE `logement` (
   `price` decimal(10,2),
   `date_added` datetime,
   `image` varchar(255)
+  `description` text,
+  `nb_rooms` decimal(10,2),
+  `surface` decimal(10,2),
 );
 
 CREATE TABLE `users` (

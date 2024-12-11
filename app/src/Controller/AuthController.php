@@ -21,7 +21,7 @@ class AuthController extends Controller
     }
 
     public function login(array $data) {
-        // Supposons que ces données viennent d'un formulaire de connexion
+        
 $email = $_POST['email'];
 $password = $_POST['password'];
 

@@ -78,8 +78,8 @@ class LogementRepository extends Repository
 
         // 4. Insérer le logement dans la table `logement`
         $queryLogement = sprintf(
-            'INSERT INTO `%s` (`type_id`, `adresse_id`, `proprietaire_id`, `price`, `date_added`, `image`) 
-            VALUES (:type_id, :adresse_id, :proprietaire_id, :price, :date_added, :image)',
+            'INSERT INTO `%s` (`type_id`, `adresse_id`, `proprietaire_id`, `price`, `date_added`, `image`, `description`, `nb_rooms`, `surface`) 
+            VALUES (:type_id, :adresse_id, :proprietaire_id, :price, :date_added, :image, :description, :nb_rooms, :surface)',
             $this->getTableName()
         );
 
@@ -96,7 +96,11 @@ class LogementRepository extends Repository
             'proprietaire_id' => $userId, // Utilisation de l'ID de l'utilisateur connecté
             'price' => $logement['price'],
             'date_added' => $logement['date_added'],
-            'image' => $image_name
+            'image' => $image_name,
+            'description' => $logement['description'],
+            'nb_rooms' => $logement['nb_rooms'],
+            'surface' => $logement['surface']
+
         ]);
 
         if (!$successLogement) {
@@ -129,6 +133,9 @@ class LogementRepository extends Repository
             $logement->setProprietaireId($logementData['proprietaire_id']);
             $logement->setPrix($logementData['price']);
             $logement->setImage($logementData['image']);
+            $logement->setDescription($logementData['description']);
+            $logement->setNbRooms($logementData['nb_rooms']);
+            $logement->setSurface($logementData['surface']);
             $logementsArray[] = $logement;
         }
 
@@ -154,6 +161,9 @@ class LogementRepository extends Repository
             $logement->setPrix($logementData['price']);
             $logement->setDateAdded($logementData['date_added']);
             $logement->setImage($logementData['image']);
+            $logement->setDescription($logementData['description']);
+            $logement->setNbRooms($logementData['nb_rooms']);
+            $logement->setSurface($logementData['surface']);
             return $logement;
         }
 

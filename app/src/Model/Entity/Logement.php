@@ -10,11 +10,14 @@ class Logement
     private ?string $image;
     private int $proprietaireId;
     private int $adresseId;
+    private string $description;
+    private int $nb_rooms;
+    private int $surface;
 
     public function __construct()
     {
         // Initialisation par défaut de dateAdded à la date actuelle
-        $this->dateAdded = date('Y-m-d H:i:s'); // Utilisation de la date et de l'heure actuelles
+        $this->dateAdded = date('Y-m-d'); // Utilisation de la date et de l'heure actuelles
     }
 
     // Getter et Setter pour $id
@@ -99,5 +102,38 @@ class Logement
     {
         $this->adresseId = $adresseId;
         return $this;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setNbRooms(int $nb_rooms): self
+    {
+        $this->nb_rooms = $nb_rooms;
+        return $this;
+    }
+
+    public function getNbRooms(): int
+    {
+        return $this->nb_rooms;
+    }
+
+    public function setSurface(int $surface): self
+    {
+        $this->surface = $surface;
+        return $this;
+    }
+
+    public function getSurface(): int
+    {
+        return $this->surface;
     }
 }

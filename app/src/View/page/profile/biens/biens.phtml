@@ -93,11 +93,94 @@
     <input type="file" name="image" id="image-bien">
 </div>
 
+<div>
+    <label for="description">Description : </label>
+    <textarea name="description" id="description"></textarea>
+</div>
+
+<div>
+    <label for="nb_pieces">Nombre de couchage : </label>
+    <input type="number" name="nb_rooms" id="nb_pieces">
+</div>
+
+<div>
+    <label for="surface">Surface : </label>
+    <input type="number" name="surface" id="surface">
+</div>
+
     <div>
         <input type="submit" value="Poster">
     </div>
 </form>
 
+<?php
+// Vérifier si l'utilisateur est connecté et obtenir son ID
+if (isset($_SESSION['id'])) {
+    $userId = $_SESSION['id']; // ID de l'utilisateur connecté
+
+    try {
+        // Connexion à la base de données
+        $pdo = new PDO("mysql:host=database;dbname=Airbnb", "LyHaven", "BIJAZIJ3é-inNI!on-,kon");
+        
+
+        // Requête pour récupérer les logements de l'utilisateur
+        $stmt = $pdo->prepare("SELECT * FROM logement WHERE proprietaire_id = :proprietaire_id");
+        $stmt->bindParam(':proprietaire_id', $userId, PDO::PARAM_INT); // Lier l'ID de l'utilisateur
+        $stmt->execute();
+
+        // Récupérer tous les logements
+        $logements = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Erreur de connexion à la base de données : " . $e->getMessage();
+        exit();
+    }
+} else {
+    // Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+    header("Location: /login");
+    exit();
+}
+?>
+
+<h1>Liste de vos logements</h1>
+
+<?php if (!empty($logements)): ?>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Adresse</th>
+                <th>Prix</th>
+                <th>Date d'ajout</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($logements as $logement): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($logement['id']); ?></td>
+                    <td><?php echo htmlspecialchars($logement['type_id']); ?></td>
+                    <td><?php echo htmlspecialchars($logement['adresse_id']); ?></td>
+                    <td><?php echo htmlspecialchars($logement['price']); ?></td>
+                    <td><?php echo htmlspecialchars($logement['surface']); ?></td>
+                    <td><?php echo htmlspecialchars($logement['nb_rooms']); ?></td>
+                    <td><?php echo htmlspecialchars($logement['date_added']); ?></td>
+                    <td><?php echo htmlspecialchars($logement['description']); ?></td>
+                    <td>
+                        <!-- Afficher l'image si elle existe -->
+                        <?php if (!empty($logement['image'])): ?>
+                            <img src="/image/<?php echo htmlspecialchars($logement['image']); ?>" alt="Image du bien" width="100">
+                        <?php else: ?>
+                            Pas d'image
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p>Vous n'avez pas encore posté de logement.</p>
+<?php endif; ?>
 
 
 
