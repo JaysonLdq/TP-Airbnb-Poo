@@ -185,4 +185,6 @@ class UserController extends Controller
         $this->redirect( '/biens' );
         
      }
+
+     
 }

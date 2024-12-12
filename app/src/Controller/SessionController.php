@@ -20,4 +20,13 @@ class SessionController {
         session_destroy();
     }
 
-}?>
+  
+    public static function getUserId(): ?int
+    {
+        // Exemple : si l'ID de l'utilisateur est stocké dans $_SESSION
+        return $_SESSION['user_id'] ?? null;
+    }
+}
+
+
+?>

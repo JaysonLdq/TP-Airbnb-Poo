@@ -281,6 +281,16 @@ footer a:hover {
     padding: 0;
 }
 
+.navbar-right{
+    margin : 25px;
+}
+
+.navbar-right p {
+    margin: 0;
+    color: white;
+    font-size: 18px;
+}
+
 .navbar-right .nav-links li {
     margin-left: 20px; /* Espacement entre les éléments */
 }
@@ -331,7 +341,170 @@ footer a:hover {
     background-color: #00BFFF; 
 }
 
-p {
+
+
+/* Conteneur de l'image */
+.logement-details img {
+    width: auto;           /* L'image conserve ses dimensions naturelles */
+    height: 200px;         /* Limite la hauteur de l'image */
+    max-width: 100%;       /* Limite la largeur au 100% de son conteneur */
+    object-fit: contain;   /* L'image s'ajuste à l'intérieur du cadre sans couper */
+    border-radius: 8px;    /* Coins arrondis pour un style élégant */
+    border: 1px solid white; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;   
+}
+
+/* Optionnel : Ajuster le conteneur pour un meilleur style */
+.logement-details {
+    max-width: 600px;      /* Limite la largeur du conteneur */
+    margin: 0 auto;        /* Centre le conteneur */
+    padding: 20px;         /* Espacement interne */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre autour du conteneur */
+}
+
+
+/* Style pour le contenu de l'information */
+.info-content {
+    margin-top: 15px;
+}
+
+.info-content h3 {
+    font-size: 1.5rem;
+    color: #1E88E5; /* Couleur primaire pour le titre */
+}
+
+.info-content p {
+    font-size: 1rem;
+    color: #555; /* Couleur grise pour le texte de la description */
+}
+
+.info-content .price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #FF7043; /* Couleur orange pour le prix */
+}
+
+/* Style pour le bouton d'envoi du formulaire */
+form button {
+    padding: 12px 24px;             
+    background-color: #007bff;     
+    color: white;                   
+    font-size: 16px;                  
+    font-weight: bold;              
+    border: none;                    
+    border-radius: 8px;              
+    cursor: pointer;                 
+    transition: all 0.3s ease;        
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+}
+
+/* Effet de survol du bouton */
+form button:hover {
+    background-color: #0056b3;      
+    transform: translateY(-2px);    
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+}
+
+/* Effet au clic du bouton */
+form button:active {
+    transform: translateY(2px);      
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+}
+
+/* Applique Flexbox à body pour une disposition flexible */
+html, body {
+    height: 100%;
+    margin: 0; /* Retirer les marges par défaut */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Conteneur principal qui contient le contenu et le footer */
+.main-content {
+    flex: 1; /* Remplit l'espace restant */
+}
+
+/* Style pour le footer, collé en bas */
+.footer {
+    background-color: #f7f7f7;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin-top: auto; /* Permet au footer de se placer tout en bas */
+}
+
+/* Autres styles pour le footer (comme mentionné précédemment) */
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1;
+    margin-right: 20px;
+    min-width: 200px;
+}
+
+.footer-section h4 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #007bff;
+}
+
+.social-media {
+    display: flex;
+    flex-direction: column;
+}
+
+.social-icons a {
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.social-icons img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover img {
+    transform: scale(1.2);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 14px;
+    color: #888;
+}
+
+.footer-bottom p {
     margin: 0;
-    color: white;
-} 
+}
+

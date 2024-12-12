@@ -2,22 +2,56 @@
 
 namespace App\Controller;
 
+use App\Model\Repository\RepoManager;
+use Laminas\Diactoros\ServerRequest;
 use Symplefony\Controller;
 use Symplefony\View;
 
 class LocationController extends Controller
 {
-   // Page de location
-   public function location(): void
-   {
-       $view = new View( 'page:rentals:location' );
+    // Afficher les détails d'un logement
+   public function showLogement(int $id): void
+{
+    // Récupérer les détails du logement
+    $logement = RepoManager::getRM()->getLogementRepo()->getById($id);
 
-       $data = [
-           'title' => 'Locations - Havenly.com'
-       ];
+    if ($logement) {
+        // Charger la vue location.phtml
+        $view = new View('page:rentals:location');
+        $data = [
+            'title' => 'Détails du logement - ',
+            'logement' => $logement
+        ];
+        $view->render($data);
+    } else {
+        // Si le logement n'existe pas, afficher une erreur
+        View::renderError(404);
+    }
 
-       $view->render( $data );
+    
+}
 
-      
-   }
+public function createReservation( ServerRequest $request, $id ): void
+     {
+        $location_data = $request->getParsedBody();
+        
+        $data_location = [
+            'rental_date' => htmlspecialchars($location_data['rental_date']),
+            'end_date' => htmlspecialchars($location_data['end_date']),
+            'logement_id' => $id,
+            'user_id' => $_SESSION['id']
+        ];
+        
+        $location_created = RepoManager::getRM()->getLocationRepo()->createReservation($data_location);
+
+
+        if( !$location_created ) {
+            // TODO: gérer une erreur
+            $this->redirect( '/' );
+        }
+
+        $this->redirect( '/' );
+        
+     }
+
 }

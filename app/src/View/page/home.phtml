@@ -2,22 +2,22 @@
 <h1>Havenly</h1>
 
 
-<h1>Liste des logements</h1>
-
 <div class="vignettes">
     <?php if (isset($logements) && !empty($logements)): ?>
         <?php foreach ($logements as $logement): ?>
-            <div class="vignette">
-                <img src="/image/<?php echo htmlspecialchars($logement->getImage()); ?>" alt="Image du logement">
-                <div class="vignette-content">
-                    <h3><?php echo htmlspecialchars($logement->getTypeId()); ?></h3>
-                    <p><?php echo htmlspecialchars($logement->getDescription()); ?></p>
-                    <p class="price"><?php echo htmlspecialchars($logement->getPrix()); ?> €</p>
-                    <a href="/logements/<?php echo $logement->getId(); ?>">Voir plus</a>
+            <a href="/rentals/<?php echo urlencode($logement->getId()); ?>" class="vignette-link">
+                <div class="vignette">
+                    <img src="/image/<?php echo htmlspecialchars($logement->getImage()); ?>" alt="Image du logement">
+                    <div class="vignette-content">
+                        <h3><?php echo htmlspecialchars($logement->getAdresseId()); ?></h3>
+                        <p><?php echo htmlspecialchars($logement->getDescription()); ?></p>
+                        <p class="price"><?php echo htmlspecialchars($logement->getPrix()); ?> €</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         <?php endforeach; ?>
     <?php else: ?>
         <p>Aucun logement trouvé.</p>
     <?php endif; ?>
 </div>
+

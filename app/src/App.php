@@ -68,6 +68,13 @@ final class App
         $this->router->get( '/biens', [ UserController::class, 'biens' ]);
         $this->router->post( '/biens', [ UserController::class, 'createBiens' ]);
         $this->router->get( '/biens/{id}', [ UserController::class, 'showBiens' ]);
+        // Route pour afficher le détail d'un logement
+         // Détail
+         $this->router->get( '/rentals/{id}', [ LocationController::class, 'showLogement' ] );
+         $this->router->post( '/rentals/{id}', [ LocationController::class, 'createReservation' ]);
+      
+     
+
 
        
 
@@ -94,15 +101,10 @@ final class App
             Attributes::MIDDLEWARE => [ AdminMiddleware::class ]
         ];
 
-         // -- Locations --
-            // Ajout
-            $this->router->get( '//add', [ LocationController::class, 'add' ] );
-            $this->router->post( '/rentals', [ LocationController::class, 'create' ] );
+        
 
-            // Liste
-            $this->router->get( '/rentals', [ LocationController::class, 'index' ]);
-            // Détail
-            $this->router->get( '/rentals/{id}', [ LocationController::class, 'show' ] );
+           
+           
 
         $this->router->group( $adminAttributes, function( Router $router ) {
             $router->get( '', [ AdminController::class, 'dashboard' ]);
