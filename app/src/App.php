@@ -68,6 +68,7 @@ final class App
         $this->router->get( '/biens', [ UserController::class, 'biens' ]);
         $this->router->post( '/biens', [ UserController::class, 'createBiens' ]);
         $this->router->get( '/biens/{id}', [ UserController::class, 'showBiens' ]);
+        $this->router->get('/mesLocations', [LocationController::class, 'meslocation']);
         // Route pour afficher le détail d'un logement
          // Détail
          $this->router->get( '/rentals/{id}', [ LocationController::class, 'showLogement' ] );

@@ -1,0 +1,70 @@
+<?php
+if (isset($_SESSION['id'])) {
+    $userId = $_SESSION['id']; // ID de l'utilisateur connecté
+
+    try {
+        // Connexion à la base de données
+        $pdo = new PDO("mysql:host=database;dbname=Airbnb;charset=utf8", "LyHaven", "BIJAZIJ3é-inNI!on-,kon");
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Requête pour récupérer les réservations de l'utilisateur
+        $stmt = $pdo->prepare("SELECT * FROM rentals WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Récupérer toutes les réservations
+        $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Créer un tableau pour stocker les informations des logements
+        $logements = [];
+
+        // Récupérer les informations des logements associés à chaque réservation
+        foreach ($reservations as $reservation) {
+            $stmt = $pdo->prepare("SELECT * FROM logement WHERE id = :logement_id");
+            $stmt->bindParam(':logement_id', $reservation['logement_id'], PDO::PARAM_INT);
+            $stmt->execute();
+
+            // Stocker les informations du logement dans le tableau avec l'ID de la réservation comme clé
+            $logements[$reservation['id']] = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+    } catch (PDOException $e) {
+        echo "Erreur de connexion à la base de données : " . $e->getMessage();
+        exit();
+    }
+}
+?>
+
+<h1>Mes Réservations</h1>
+<div class="reservations-container">
+    <?php foreach ($reservations as $reservation): ?>
+        <?php 
+        // Chercher les informations du logement correspondant à la réservation
+        $logementTrouve = null;
+        foreach ($logements as $logement) {
+            if ($logement['id'] == $reservation['logement_id']) { // Comparer l'ID du logement
+                $logementTrouve = $logement;
+                break;
+            }
+        }
+        ?>
+
+        <div class="logement-card">
+            <?php if ($logementTrouve): ?>
+                
+                <div class="logement-details">
+                    <img src="/image/<?php echo htmlspecialchars($logementTrouve['image']); ?>" alt="Image du logement">
+                    <p><?php echo htmlspecialchars($logementTrouve['description']); ?></p>
+                    <p class="price"><?php echo htmlspecialchars($logementTrouve['price']); ?> € / nuit</p>
+                    <div class="info-content">
+                    <p>Date d'arrivée : <?php echo htmlspecialchars($reservation['rental_date']); ?></p>
+                    <p>Date de départ : <?php echo htmlspecialchars($reservation['end_date']); ?></p>
+                </div>
+        </div>
+            <?php else: ?>
+                <p>Informations du logement introuvables.</p>
+            <?php endif; ?>
+
+            
+        </div>
+    <?php endforeach; ?>
+</div>

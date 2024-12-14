@@ -11,6 +11,7 @@ abstract class Repository
     abstract protected function getTableName(): string;
     abstract public function getAll(): array;
     abstract public function getById( int $id ): mixed;
+    
 
     public function __construct( PDO $pdo )
     {

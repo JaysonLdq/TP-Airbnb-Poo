@@ -54,4 +54,20 @@ public function createReservation( ServerRequest $request, $id ): void
         
      }
 
+     // Afficher toutes les locations 
+        public function meslocation(): void
+        {
+            // Récupérer les locations depuis le repository
+            $locations = RepoManager::getRM()->getLocationRepo()->getAll();
+    
+            // Passer les locations à la vue
+            $view = new View('page:profile:mesLocations:MesBiens');
+            $data = [
+                'title' => 'Liste des locations',
+                'locations' => $locations
+            ];
+    
+            // Rendre la vue avec les données
+            $view->render($data);
+        }
 }
