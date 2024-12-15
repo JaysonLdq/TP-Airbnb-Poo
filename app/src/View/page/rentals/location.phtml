@@ -2,21 +2,20 @@
 
 <h1>Détails du logement</h1>
 
+
 <div class="logement-details">
     <img src="/image/<?php echo htmlspecialchars($logement->getImage()); ?>" alt="Image du logement">
-        <div class="info-content">
-            <h3><?php echo htmlspecialchars($logement->getAdresseId()); ?></h3>
-                <p><?php echo htmlspecialchars($logement->getDescription()); ?></p>
-                <p class="price"><?php echo htmlspecialchars($logement->getPrix()); ?> €</p>
-        </div>
+    <div class="info-content">
+        <h3><?php echo htmlspecialchars($logement->getAdresseId()); ?></h3>
+        <p><?php echo htmlspecialchars($logement->getDescription()); ?></p>
+        <p class="price"><?php echo htmlspecialchars($logement->getPrix()); ?> €</p>
+    </div>
 </div>
 
 <h2>Réservez ce logement</h2>
 
 <!-- Formulaire de réservation -->
 <form action="/rentals/<?php echo htmlspecialchars($logement->getId()); ?>" method="POST" enctype="multipart/form-data">
-    
-       
     <div class="form-group">
         <label for="date_arrivee">Date d'arrivée :</label>
         <input type="date" id="date_arrivee" name="rental_date" required>
@@ -28,4 +27,3 @@
     
     <button type="submit">Réserver</button>
 </form>
-

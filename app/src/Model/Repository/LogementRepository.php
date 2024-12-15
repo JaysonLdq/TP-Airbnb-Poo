@@ -99,8 +99,7 @@ class LogementRepository extends Repository
             'image' => $image_name,
             'description' => $logement['description'],
             'nb_rooms' => $logement['nb_rooms'],
-            'surface' => $logement['surface']
-
+            'surface' => $logement['surface'],
         ]);
 
         if (!$successLogement) {
@@ -110,6 +109,23 @@ class LogementRepository extends Repository
 
         // Ajouter l'ID du logement à notre tableau associatif
         $logement['id'] = (int) $this->pdo->lastInsertId();
+
+        // 5. Insérer les équipements associés dans la table `logement_equipements`
+        if (!empty($logement['equipements']) && is_array($logement['equipements'])) {
+            $queryEquipement = 'INSERT INTO logement_equipements (logement_id, equipement_id) VALUES (:logement_id, :equipement_id)';
+            $sthEquipement = $this->pdo->prepare($queryEquipement);
+
+            foreach ($logement['equipements'] as $equipementId) {
+                $successEquipement = $sthEquipement->execute([
+                    'logement_id' => $logement['id'], // ID du logement inséré
+                    'equipement_id' => $equipementId
+                ]);
+
+                if (!$successEquipement) {
+                    echo "Erreur lors de l'insertion des équipements: " . implode(", ", $sthEquipement->errorInfo());
+                }
+            }
+        }
 
         return $logement;
     }
@@ -158,7 +174,6 @@ class LogementRepository extends Repository
             $logement->setTypeId($logementData['type_id']);
             $logement->setAdresseId($logementData['adresse_id']);
             $logement->setProprietaireId($logementData['proprietaire_id']);
-            $logement->setPrix($logementData['price']);
             $logement->setDateAdded($logementData['date_added']);
             $logement->setImage($logementData['image']);
             $logement->setDescription($logementData['description']);

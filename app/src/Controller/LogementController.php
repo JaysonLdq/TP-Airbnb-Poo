@@ -24,6 +24,5 @@ class LogementController
         // Rendre la vue avec les données
         $view->render($data);
     }
-
     
 }

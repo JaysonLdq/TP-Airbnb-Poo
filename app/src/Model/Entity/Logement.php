@@ -18,6 +18,8 @@ class Logement
     {
         // Initialisation par défaut de dateAdded à la date actuelle
         $this->dateAdded = date('Y-m-d'); // Utilisation de la date et de l'heure actuelles
+        $this->prix = 0.0;
+       
     }
 
     // Getter et Setter pour $id
