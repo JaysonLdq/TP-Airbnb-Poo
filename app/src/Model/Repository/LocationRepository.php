@@ -16,12 +16,6 @@ class LocationRepository extends Repository
     {
         return 'rentals'; // La table des logements
     }
-    // // Connexion PDO
-    // private $pdo;
-
-    // public function __construct($pdo) {
-    //     $this->pdo = $pdo;
-    // }
 
     // Méthode pour insérer une réservation dans la table rentals
     public function createReservation(array $data_location): bool
@@ -53,23 +47,8 @@ class LocationRepository extends Repository
     // Récupérer tous les logements
     public function getAll(): array
     {
-        $query = "SELECT * FROM rentals";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute();
-
-        $locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // Convertir les résultats en objets Logement
-        $locationsArray = [];
-        foreach ($locations as $locationData) {
-            $location = new Location($locationData['id'], $locationData['user_id'], $locationData['logement_id'], $locationData['rental_date'], $locationData['end_date']);
-            $location->setId($locationData['id']);
-            $location->setUserId($locationData['user_id']);
-            $location->setLogementId($locationData['logement_id']);
-            $location->setRentalDate($locationData['rental_date']);
-            $location->setEndDate($locationData['end_date']);
-            $locationsArray[] = $location;
-        }
+        
+        $locationsArray = $this->readAll(Location::class);
 
         return $locationsArray;
     }
@@ -78,24 +57,9 @@ class LocationRepository extends Repository
     // Récupérer un logement par son ID
     public function getById(int $id): ?Location
     {
-        $query = "SELECT * FROM rentals WHERE id = :id";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
+        $location = $this->readById(Location::class, $id);
 
-        $locationData = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($locationData) {
-            $location = new Location($locationData['id'], $locationData['user_id'], $locationData['logement_id'], $locationData['rental_date'], $locationData['end_date']);
-            $location->setId($locationData['id']);
-            $location->setUserId($locationData['user_id']);
-            $location->setLogementId($locationData['logement_id']);
-            $location->setRentalDate($locationData['rental_date']);
-            $location->setEndDate($locationData['end_date']);
-            return $location;
-        }
-
-        return null;
+        return $location;
     }
 }
 

@@ -1,72 +1,56 @@
 <?php
 namespace App\Model\Entity;
 
-class Logement
+use Symplefony\Model\Entity;
+
+class Logement extends Entity
 {
-    private int $id;
-    private int $typeId;
-    private float $prix;
-    private string $dateAdded;
-    private ?string $image;
-    private int $proprietaireId;
-    private int $adresseId;
-    private string $description;
-    private int $nb_rooms;
-    private int $surface;
+   
+    protected int $type_id;
+    protected float $price;
+    protected string $date_added;
+    protected ?string $image;
+    protected int $proprietaire_id;
+    protected int $adresse_id;
+    protected string $description;
+    protected int $nb_rooms;
+    protected int $surface;
+  
 
-    public function __construct()
-    {
-        // Initialisation par défaut de dateAdded à la date actuelle
-        $this->dateAdded = date('Y-m-d'); // Utilisation de la date et de l'heure actuelles
-        $this->prix = 0.0;
-       
-    }
-
-    // Getter et Setter pour $id
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
 
     // Getter et Setter pour $typeId
     public function getTypeId(): int
     {
-        return $this->typeId;
+        return $this->type_id;
     }
 
     public function setTypeId(int $typeId): self
     {
-        $this->typeId = $typeId;
+        $this->type_id = $typeId;
         return $this;
     }
 
     // Getter et Setter pour $prix
     public function getPrix(): float
     {
-        return $this->prix;
+        return $this->price;
     }
 
     public function setPrix(float $prix): self
     {
-        $this->prix = $prix;
+        $this->price = $prix;
         return $this;
     }
 
     // Getter et Setter pour $dateAdded
     public function getDateAdded(): string
     {
-        return $this->dateAdded;
+        return $this->date_added;
     }
 
     public function setDateAdded(string $dateAdded): self
     {
-        $this->dateAdded = $dateAdded;
+        $this->date_added = $dateAdded;
         return $this;
     }
 
@@ -85,24 +69,24 @@ class Logement
     // Getter et Setter pour $proprietaireId
     public function getProprietaireId(): int
     {
-        return $this->proprietaireId;
+        return $this->proprietaire_id;
     }
 
     public function setProprietaireId(int $proprietaireId): self
     {
-        $this->proprietaireId = $proprietaireId;
+        $this->proprietaire_id = $proprietaireId;
         return $this;
     }
 
     // Getter et Setter pour $adresseId
     public function getAdresseId(): int
     {
-        return $this->adresseId;
+        return $this->adresse_id;
     }
 
     public function setAdresseId(int $adresseId): self
     {
-        $this->adresseId = $adresseId;
+        $this->adresse_id = $adresseId;
         return $this;
     }
 

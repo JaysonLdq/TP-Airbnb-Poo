@@ -13,6 +13,8 @@ class LogementController
     {
         // Récupérer les logements depuis le repository
         $logements = RepoManager::getRM()->getLogementRepo()->getAll();
+        var_dump($logements);
+        die();
 
         // Passer les logements à la vue
         $view = new View('page:home');

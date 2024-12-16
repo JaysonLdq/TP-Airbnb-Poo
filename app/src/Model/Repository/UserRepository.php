@@ -4,17 +4,13 @@ namespace App\Model\Repository;
 
 use App\Model\Entity\User;
 use PDO;
+use Symplefony\Model\Repository;
 
-class UserRepository
+class UserRepository extends Repository
 {
-    private $pdo;
 
-    // Constructeur pour injecter la dépendance PDO
-    public function __construct(PDO $pdo)
-    {
-        $this->pdo = $pdo;
-    }
 
+   
     // Méthode pour récupérer le nom de la table
     protected function getTableName(): string
     {
@@ -70,13 +66,7 @@ class UserRepository
 
         $users = [];
         while ($user_data = $sth->fetch(PDO::FETCH_ASSOC)) {
-            $user = new User($this->pdo);
-            $user->setId($user_data['id']);
-            $user->setEmail($user_data['email']);
-            $user->setPassword($user_data['password']);
-            $user->setFirstname($user_data['firstname']);
-            $user->setLastname($user_data['lastname']);
-            $user->setPhoneNumber($user_data['phone_number']);
+            $user = new User($user_data);
             $users[] = $user;
         }
 
@@ -96,13 +86,7 @@ class UserRepository
         $user_data = $sth->fetch(PDO::FETCH_ASSOC);
 
         if ($user_data) {
-            $user = new User($this->pdo);
-            $user->setId($user_data['id']);
-            $user->setEmail($user_data['email']);
-            $user->setPassword($user_data['password']);
-            $user->setFirstname($user_data['firstname']);
-            $user->setLastname($user_data['lastname']);
-            $user->setPhoneNumber($user_data['phone_number']);
+            $user = new User($user_data);
             return $user;
         }
 
@@ -123,16 +107,37 @@ class UserRepository
         $user_data = $sth->fetch(PDO::FETCH_ASSOC);
 
         if ($user_data) {
-            $user = new User($this->pdo);
-            $user->setId($user_data['id']);
-            $user->setEmail($user_data['email']);
-            $user->setPassword($user_data['password']); // Mot de passe haché
-            $user->setFirstname($user_data['firstname']);
-            $user->setLastname($user_data['lastname']);
-            $user->setPhoneNumber($user_data['phone_number']);
+            $user = new User($user_data);
             return $user;
         }
 
         return null; // L'utilisateur n'a pas été trouvé
     }
+
+        // Méthode findByEmail pour récupérer un utilisateur par son email
+        public function findByEmail($email)
+        {
+            // Prépare la requête SQL pour rechercher un utilisateur par son email
+            $query = "SELECT * FROM users WHERE email = :email";
+           
+    
+            $stmt = $this->pdo->prepare($query);
+    
+            // Lie le paramètre email à la valeur donnée
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    
+            // Exécute la requête
+            $stmt->execute();
+    
+            // Récupère le résultat
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Si l'utilisateur existe, retourne ses informations
+            if ($user) {
+                return $user;
+            }
+    
+            // Si aucun utilisateur n'est trouvé, retourne null
+            return null;
+        }
 }

@@ -9,6 +9,11 @@
         <h3><?php echo htmlspecialchars($logement->getAdresseId()); ?></h3>
         <p><?php echo htmlspecialchars($logement->getDescription()); ?></p>
         <p class="price"><?php echo htmlspecialchars($logement->getPrix()); ?> €</p>
+        <!-- Ajouter les informations supplémentaires -->
+        <p>Surface : <?php echo htmlspecialchars($logement->getSurface()); ?> m²</p>
+        <p>Nombre de pièces : <?php echo htmlspecialchars($logement->getNbRooms()); ?></p>
+
+
     </div>
 </div>
 

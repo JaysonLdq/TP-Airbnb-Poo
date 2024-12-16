@@ -133,27 +133,7 @@ class LogementRepository extends Repository
     // Récupérer tous les logements
     public function getAll(): array
     {
-        $query = "SELECT * FROM logement";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute();
-
-        $logements = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // Convertir les résultats en objets Logement
-        $logementsArray = [];
-        foreach ($logements as $logementData) {
-            $logement = new Logement();
-            $logement->setId($logementData['id']);
-            $logement->setTypeId($logementData['type_id']);
-            $logement->setAdresseId($logementData['adresse_id']);
-            $logement->setProprietaireId($logementData['proprietaire_id']);
-            $logement->setPrix($logementData['price']);
-            $logement->setImage($logementData['image']);
-            $logement->setDescription($logementData['description']);
-            $logement->setNbRooms($logementData['nb_rooms']);
-            $logement->setSurface($logementData['surface']);
-            $logementsArray[] = $logement;
-        }
+       $logementsArray = $this->readAll(Logement::class);
 
         return $logementsArray;
     }
@@ -161,27 +141,8 @@ class LogementRepository extends Repository
     // Récupérer un logement par son ID
     public function getById(int $id): ?Logement
     {
-        $query = "SELECT * FROM logement WHERE id = :id";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
+        $logement = $this->readById(Logement::class, $id);
 
-        $logementData = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($logementData) {
-            $logement = new Logement();
-            $logement->setId($logementData['id']);
-            $logement->setTypeId($logementData['type_id']);
-            $logement->setAdresseId($logementData['adresse_id']);
-            $logement->setProprietaireId($logementData['proprietaire_id']);
-            $logement->setDateAdded($logementData['date_added']);
-            $logement->setImage($logementData['image']);
-            $logement->setDescription($logementData['description']);
-            $logement->setNbRooms($logementData['nb_rooms']);
-            $logement->setSurface($logementData['surface']);
-            return $logement;
-        }
-
-        return null;
+        return $logement;
     }
 }
