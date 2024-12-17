@@ -42,12 +42,14 @@ class PageController extends Controller
     {
         // Récupérer les logements depuis le repository
         $logements = RepoManager::getRM()->getLogementRepo()->getAll();
+        $logementRepo = RepoManager::getRM()->getLogementRepo();
 
         // Passer les logements à la vue
         $view = new View('page:home');
         $data = [
             'title' => 'Liste des logements',
-            'logements' => $logements
+            'logements' => $logements,
+            'logementRepo' => $logementRepo
         ];
 
         // Rendre la vue avec les données

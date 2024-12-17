@@ -73,6 +73,9 @@ final class App
          // Détail
          $this->router->get( '/rentals/{id}', [ LocationController::class, 'showLogement' ] );
          $this->router->post( '/rentals/{id}', [ LocationController::class, 'createReservation' ]);
+
+         $this->router->get( '/detailsBiens/{id}', [ UserController::class, 'showBiens' ] );
+
       
      
 
@@ -151,3 +154,5 @@ final class App
 
 
 }
+
+?>

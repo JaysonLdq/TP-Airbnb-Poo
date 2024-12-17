@@ -231,7 +231,6 @@ footer a:hover {
     background-color: #00BFFF; /* Bleu clair */
     padding: 10px 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: auto; 
 }
 
 .navbar-container {
@@ -508,4 +507,3 @@ html, body {
 .footer-bottom p {
     margin: 0;
 }
-

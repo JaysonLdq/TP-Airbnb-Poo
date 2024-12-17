@@ -3,12 +3,11 @@
 namespace App\Model\Entity;
 
 class Location
-{
-    private ?int $id = null;          
-    private int $logementId;          
-    private int $userId;              
-    private string $rentalDate;      
-    private string $endDate;          
+{         
+    public int $logement_id;          
+    public int $user_id;              
+    public string $rental_date;      
+    public string $end_date;          
 
     /**
      * Constructeur pour l'entité Location
@@ -18,63 +17,49 @@ class Location
      * @param string $rentalDate
      * @param string $endDate
      */
-    public function __construct(int $logementId, int $userId, string $rentalDate, string $endDate)
-    {
-        $this->logementId = $logementId;
-        $this->userId = $userId;
-        $this->rentalDate = $rentalDate;
-        $this->endDate = $endDate;
-    }
+
 
     // Getters et Setters
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
+   
 
     public function getLogementId(): int
     {
-        return $this->logementId;
+        return $this->logement_id;
     }
 
     public function setLogementId(int $logementId): void
     {
-        $this->logementId = $logementId;
+        $this->logement_id = $logementId;
     }
 
     public function getUserId(): int
     {
-        return $this->userId;
+        return $this->user_id;
     }
 
     public function setUserId(int $userId): void
     {
-        $this->userId = $userId;
+        $this->user_id = $userId;
     }
 
     public function getRentalDate(): string
     {
-        return $this->rentalDate;
+        return $this->rental_date;
     }
 
     public function setRentalDate(string $rentalDate): void
     {
-        $this->rentalDate = $rentalDate;
+        $this->rental_date = $rentalDate;
     }
 
     public function getEndDate(): string
     {
-        return $this->endDate;
+        return $this->end_date;
     }
 
     public function setEndDate(string $endDate): void
     {
-        $this->endDate = $endDate;
+        $this->end_date = $endDate;
     }
 }

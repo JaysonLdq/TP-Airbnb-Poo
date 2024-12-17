@@ -70,4 +70,23 @@ public function createReservation( ServerRequest $request, $id ): void
             // Rendre la vue avec les données
             $view->render($data);
         }
+
+        // Je veux lister les rentals faite sur les biens de l'utilisateur connecté
+    public function listReserve(): void
+    {
+        $view = new View('user:list-who-reserve');
+        $rentals = RepoManager::getRM()->getLocationRepo()->getAllForProprietaire($_SESSION['user_id']->getId());
+        foreach ($rentals as $rental) {
+            $rental->setDateStart($rental->getDateStart());
+            $rental->setDateEnd($rental->getDateEnd());
+        }
+        $data = [
+            'title' => 'Mes locations de biens',
+            'rentals' => $rentals
+        ];
+ 
+        $view->render($data);
+    }
+
+
 }

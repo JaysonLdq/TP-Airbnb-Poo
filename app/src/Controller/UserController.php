@@ -43,6 +43,8 @@ class UserController extends Controller
              $_SESSION['id'] = $user->getId();  // Stocke l'ID de l'utilisateur dans la session
              $_SESSION['email'] = $user->getEmail();  // Stocke l'email de l'utilisateur dans la session
              $_SESSION['firstname'] = $user->getFirstname();  // Stocke le prénom de l'utilisateur
+             $_SESSION['lastname'] = $user->getLastname();  // Stocke le nom de l'utilisateur
+             $_SESSION['role_id'] = $user->getRole();  // Stocke le rôle de l'utilisateur
             
 
              // Rediriger l'utilisateur vers la page d'accueil ou profil
@@ -82,15 +84,8 @@ class UserController extends Controller
        $view->render( $data );
    }
 
-    // Visiteur: Traitement du formulaire de création de compte
-    public function processSubscribe(): void
-    {
-        // TODO: :)
-    }
 
-    /**
-     * Pages Administrateur
-     */
+
 
     // Admin: Affichage du formulaire de création d'un utilisateur
     public function add(): void
@@ -184,6 +179,32 @@ class UserController extends Controller
 
         $this->redirect( '/biens' );
         
+     }
+
+     public function showBiens(int $id): void
+     {
+         $view = new View('page:detailsBiens:details-biens');
+     
+         // Récupération du bien par son ID
+         $logement = RepoManager::getRM()->getLogementRepo()->getById($id);
+     
+         // Si le logement n'existe pas, afficher une erreur 404
+         if (is_null($logement)) {
+             View::renderError(404);
+             return;
+         }
+     
+         // Récupération des réservations associées au logement
+         $rentals = RepoManager::getRM()->getLocationRepo()->getByLogementId($id);
+     
+         // Données à passer à la vue
+         $data = [
+             'title' => 'Détails du bien: ',
+             'logement' => $logement,
+             'rentals' => $rentals // On passe les réservations à la vue
+         ];
+     
+         $view->render($data);
      }
 
      

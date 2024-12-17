@@ -9,7 +9,22 @@ use Symplefony\Model\Entity;
 class User extends Entity
 {
 
-    
+    /**
+     * Rôle commercial
+     */
+    public const ROLE_PROPRIETAIRE = 9;
+    /**
+     * Rôle client
+     */
+    public const ROLE_LOCATAIRE = 8;
+    /**
+     * Rôle administrateur
+     */
+    public const ROLE_ADMIN = 10;
+    /**
+     * Rôle visiteur
+     */
+    public const ROLE_VISITOR = 1;
     
     
     protected string $password;
@@ -49,6 +64,14 @@ class User extends Entity
     public function setPhoneNumber( int $value ): self
     {
         $this->phone_number = $value;
+        return $this;
+    }
+
+    protected  $role_id;
+    public function getRole(): int { return $this->role_id; }
+    public function setRole( int $role ): self
+    {
+        $this->role_id = $role;
         return $this;
     }
 

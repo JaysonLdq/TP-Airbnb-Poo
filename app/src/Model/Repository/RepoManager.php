@@ -21,6 +21,7 @@ class RepoManager
 
     private LocationRepository $location_repo;
     public function getLocationRepo(): LocationRepository { return $this->location_repo; }
+    
 
 
     private function __construct()

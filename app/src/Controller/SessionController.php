@@ -26,6 +26,12 @@ class SessionController {
         // Exemple : si l'ID de l'utilisateur est stocké dans $_SESSION
         return $_SESSION['user_id'] ?? null;
     }
+
+    public static function getUserRole(): ?string
+    {
+        // Exemple : si le rôle de l'utilisateur est stocké dans $_SESSION
+        return $_SESSION['role_id'] ?? null;
+    }
 }
 
 

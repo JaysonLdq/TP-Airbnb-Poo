@@ -1,0 +1,37 @@
+<h1>Détails de votre logement</h1>
+
+<div class="logement-details">
+    <img src="/image/<?php echo htmlspecialchars($logement->getImage()); ?>" alt="Image du logement">
+    <div class="info-content">
+        <h3><?php echo htmlspecialchars($logement->getAdresseId()); ?></h3>
+        <p><?php echo htmlspecialchars($logement->getDescription()); ?></p>
+        <p class="price"><?php echo htmlspecialchars($logement->getPrix()); ?> €</p>
+        <!-- Ajouter les informations supplémentaires -->
+        <p>Surface : <?php echo htmlspecialchars($logement->getSurface()); ?> m²</p>
+        <p>Nombre de pièces : <?php echo htmlspecialchars($logement->getNbRooms()); ?></p>
+    </div>
+</div>
+
+<h2>Utilisateurs ayant réservé ce logement :</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Utilisateur</th>
+            <th>Logement</th>
+            <th>Date de réservation</th>
+            <th>Date de fin</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($rentals as $rental): ?>
+           
+            <tr>
+                <td><?php echo htmlspecialchars($rental['user_id']); ?></td>
+                <td><?php echo htmlspecialchars($rental['logement_id']); ?></td>
+                <td><?php echo htmlspecialchars($rental['rental_date']); ?></td>
+                <td><?php echo htmlspecialchars($rental['end_date']); ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

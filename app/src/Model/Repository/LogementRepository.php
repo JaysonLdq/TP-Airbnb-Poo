@@ -2,6 +2,7 @@
 namespace App\Model\Repository;
 
 use App\Controller\SessionController;
+use App\Model\Entity\Adresse;
 use Symplefony\Model\Repository;
 use App\Model\Entity\Logement;
 use PDO;
@@ -145,4 +146,18 @@ class LogementRepository extends Repository
 
         return $logement;
     }
+
+    public function getAdresseById(int $adresse_id): ?array
+    {
+        $query = 'SELECT * FROM adresse WHERE adresse_id = :adresse_id';
+        $sth = $this->pdo->prepare($query);
+        $sth->execute(['adresse_id' => $adresse_id]);
+
+        $adresse = $sth->fetch(PDO::FETCH_ASSOC);
+      
+        return $adresse;
+    }
+    
+
+    
 }

@@ -15,6 +15,7 @@ class Logement extends Entity
     protected string $description;
     protected int $nb_rooms;
     protected int $surface;
+    protected array $equipements;
   
 
 
@@ -121,5 +122,16 @@ class Logement extends Entity
     public function getSurface(): int
     {
         return $this->surface;
+    }
+
+    public function getEquipements(): array
+    {
+        return $this->equipements;
+    }
+
+    public function setEquipements(array $equipements): self
+    {
+        $this->equipements = $equipements;
+        return $this;
     }
 }

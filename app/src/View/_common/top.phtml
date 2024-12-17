@@ -3,34 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style.css"> 
 
-    <title><?php
-
-use App\Controller\SessionController;
-
- echo $title ?></title>
-
-    
+    <title><?php echo $title ?></title>
 </head>
 <body>
 
 <?php
-
+use App\Controller\SessionController;
 SessionController::start();  // Démarre la session si elle n'est pas déjà active
-?>
 
+// Vérifie si l'utilisateur a cliqué sur le lien de déconnexion
+if (isset($_GET['logout']) && $_GET['logout'] === 'true') {
+    // Supprime toutes les données de session
+    session_unset();
+    
+    // Détruit la session
+    session_destroy();
+    
+    // Redirige l'utilisateur vers la page d'accueil
+    header('Location: /');
+    exit;
+}
+
+// Récupérer le rôle et le prénom de l'utilisateur depuis la session via le SessionController
+$role = SessionController::getUserRole();  // Méthode de SessionController pour récupérer le rôle
+$firstname = SessionController::get('firstname');  // Méthode de SessionController pour récupérer le prénom
+?>
 
 <header class="navbar">
   <div class="navbar-container">
     <div class="navbar-left">
       <a href="/" class="logo">
-      <img src="/logo/Unknown.png" alt="Logo" />
-
-
-
-
-
+        <img src="/logo/Unknown.png" alt="Logo" />
+      </a>
     </div>
 
     <div class="navbar-center">
@@ -43,36 +49,52 @@ SessionController::start();  // Démarre la session si elle n'est pas déjà act
     </div>
 
     <nav class="navbar-right">
-
       <div class="nav-user">
-      <?php
-        // Vérifie que la session contient bien les données
-        if (isset($_SESSION['firstname'])) {
-            $firstname = $_SESSION['firstname'];
-            ?>
-            <p>Bonjour <?php echo htmlspecialchars($firstname); ?></p>
-            <?php
-        } else {
-            $firstname = ''; // Valeur par défaut si la clé n'est pas présente
+        <?php
+        // Vérifie si l'utilisateur est connecté et affiche son prénom
+        if ($firstname) {
+            echo '<p>Bonjour ' . htmlspecialchars($firstname) . '</p>';
         }
-      ?>
+        ?>
       </div>
       <ul class="nav-links">
         <li><a href="/">Accueil</a></li>
+        
         <li class="dropdown">
-          <a href="#">Profils</a>
-          <ul class="dropdown-content">
-            <li><a href="/profile">Mon profil</a></li>
-            <li><a href="/mesLocations">Mes locations</a></li>
-            <li><a href="/biens">Mes biens</a></li>
-          </ul>
+            <a href="#">Profils</a>
+            <ul class="dropdown-content">
+                <li><a href="/profile">Mon profil</a></li>
+
+                <?php
+                // Vérifie que l'utilisateur est connecté avant d'afficher "Mes Locations"
+                if ($role == '8') {
+                    echo '<li><a href="/mesLocations">Mes locations</a></li>';
+                }
+
+                // Vérifie que l'utilisateur est connecté avant d'afficher "Mes Biens"
+                if ($role == '9') {
+                    
+                    echo '<li><a href="/mesLocations">Mes locations</a></li>';
+                    echo '<li><a href="/biens">Mes biens</a></li>';
+                }
+                ?>
+            </ul>
         </li>
-        <li><a href="/users/connexion">Connexion</a></li>
+
+        <?php if ($firstname): ?>
+            <!-- Si l'utilisateur est connecté, afficher le lien de déconnexion -->
+            <li>
+                <a href="?logout=true">Déconnexion</a>
+            </li>
+        <?php else: ?>
+            <!-- Si l'utilisateur n'est pas connecté, afficher le lien Connexion -->
+            <li><a href="/users/connexion">Connexion</a></li>
+        <?php endif; ?>
+
       </ul>
     </nav>
   </div>
 </header>
 
-
-
-
+</body>
+</html>

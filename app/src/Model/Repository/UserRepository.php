@@ -26,8 +26,8 @@ class UserRepository extends Repository
 
         $query = sprintf(
             'INSERT INTO `%s` 
-            (`password`,`email`,`firstname`,`lastname`,`phone_number`) 
-            VALUES (:password,:email,:firstname,:lastname,:phone_number)',
+            (`password`,`email`,`firstname`,`lastname`,`phone_number`,`role_id`) 
+            VALUES (:password,:email,:firstname,:lastname,:phone_number,:role_id)',
             $this->getTableName()
         );
 
@@ -44,6 +44,7 @@ class UserRepository extends Repository
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
             'phone_number' => $user->getPhoneNumber(),
+            'role_id' => $user->getRole(),
         ]);
 
         // Si échec de l'insertion
@@ -140,4 +141,22 @@ class UserRepository extends Repository
             // Si aucun utilisateur n'est trouvé, retourne null
             return null;
         }
+
+        public function checkAuth( string $email, string $password ): ?User
+    {
+		$query = sprintf(
+			'SELECT * FROM `%s` WHERE `email`=:email AND `password`=:password',
+			$this->getTableName()
+		);
+		$sth = $this->pdo->prepare( $query );
+		if( ! $sth ) {
+            return null;
+        }
+		$sth->execute( [ 'email' => $email, 'password' => $password ] );
+		$user_data = $sth->fetch();
+		if( ! $user_data ) {
+            return null;
+        }
+		return new User( $user_data );
+    }
 }

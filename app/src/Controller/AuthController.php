@@ -8,52 +8,105 @@ use App\Model\Entity\User as EntityUser;
 use Symplefony\Controller;
 use App\Model\Entity\User;
 use App\Controller\Database;
+use App\Model\Repository\RepoManager;
+use App\Session;
+use Laminas\Diactoros\ServerRequest;
 use PDO;
+use Symplefony\View;
 
 class AuthController extends Controller
 {
 
     
-    public static function isAdmin(): bool
-    {
-        // TODO: Le vrai contrôle de session
-        return true;
-    }
-
-    public function login(array $data) {
-        
-$email = $_POST['email'];
-$password = $_POST['password'];
-
-// Créer une instance de ton modèle User pour rechercher l'utilisateur par email
-$pdo = new PDO('mysql:host=localhost;dbname=mydatabase', 'username', 'password');
-$userModel = new User($pdo);
-$user = $userModel->findByEmail($email);  // Trouve l'utilisateur par email
-
-// Vérifier si l'utilisateur existe et que le mot de passe est correct
-if ($user && password_verify($password, $user['password'])) {
-    // Connexion réussie, démarrer la session et stocker les données utilisateur
-    SessionController::start();  // Démarre la session PHP
-    SessionController::set('user_id', $user['id']);  // Stocke l'ID utilisateur dans la session
-    SessionController::set('email', $user['email']);  // Stocke l'email
-    SessionController::set('firstname', $user['firstname']);  // Stocke le prénom
-    
-    // Optionnel: rediriger vers la page de profil ou une autre page après connexion
-    header('Location: /profil');  // Rediriger vers la page de profil
-    exit();
-} else {
-    // Si la connexion échoue
-    echo "Identifiants incorrects.";
+// --- Vérifications des rôles ---
+public static function isAdmin(): bool
+{
+    return self::isAuth() && ($_SESSION['role_id'] ?? null) === User::ROLE_ADMIN;
 }
 
+public static function isAuth(): bool
+{
+    return !is_null(Session::get(Session::USER));
+}
+
+public static function isProprietaire(): bool
+{
+    return self::isAuth() && ($_SESSION['role_id'] ?? null) === User::ROLE_PROPRIETAIRE;
+}
+
+public static function isUser(): bool
+{
+    return self::isAuth() && ($_SESSION['role_id'] ?? null) === User::ROLE_LOCATAIRE;
+}
+
+public static function isVisitor(): bool
+{
+    return !self::isAuth();
+}
+
+// --- Actions de routes ---
+// - Visiteurs seulement -
+/**
+ * Affiche le formulaire de connexion
+ */
+public function signIn(): void
+{
+    $view = new View('page:connexion:connexion');
+    $data = [
+        'title' => 'Connexion - Havenly.com'
+    ];
+    $view->render($data);
+}
+
+/**
+ * Traitement du formulaire de connexion
+ */
+public function checkCredentials(ServerRequest $request): void
+{
+    $form_data = $request->getParsedBody();
+
+    // Vérification des données du formulaire
+    if (empty($form_data['email']) || empty($form_data['password'])) {
+        $this->redirect('/connexion'); // Redirection en cas de champs vides
     }
 
-    public function logout() {
-        // Détruire la session
-        SessionController::destroy();
-        
-        // Rediriger l'utilisateur vers la page d'accueil
-        header('Location: /');
-        exit();
+    $email = trim($form_data['email']);
+    $password = trim($form_data['password']);
+
+    if (empty($email) || empty($password)) {
+        $this->redirect('/connexion');
     }
+
+    // Vérification des identifiants
+    $user = RepoManager::getRM()->getUserRepo()->checkAuth($email, $password);
+
+    if (is_null($user)) {
+        $this->redirect('/connexion'); // Redirection en cas d'échec
+    }
+
+    // Enregistrement de l'utilisateur en session
+    Session::set(Session::USER, $user);
+
+    // Redirection selon le rôle de l'utilisateur
+    $redirect_url = match ($user->getRole()) {
+        User::ROLE_LOCATAIRE => '/rooms-user',
+        User::ROLE_PROPRIETAIRE => '/rooms-owner',
+        User::ROLE_ADMIN => '/dashboard',
+        default => '/' // Redirection par défaut
+    };
+
+    $this->redirect($redirect_url);
 }
+
+/**
+ * Déconnexion
+ */
+public function signOut(): void
+{
+    Session::remove(Session::USER);
+    $this->redirect('/');
+}   
+}
+
+
+
