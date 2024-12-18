@@ -1,3 +1,3 @@
 #!/usr/bin/sh
-mariadb Havenly -uroot -pHJVH628h-BIIBUé3-biibuHbé! < /root/init.sql
+mariadb Airbnb -uLyHaven  -pBIJAZIJ3é-inNI!on-,kon < /root/init.sql
 echo "Restauration terminée"

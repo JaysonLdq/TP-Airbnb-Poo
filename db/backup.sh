@@ -1,3 +1,5 @@
-#!/usr/bin/sh
-mariadb-dump gamedb -uroot -pValeurDeVotreChoix > /root/Backup-`(date -I)`.sql
+#!/bin/sh
+
+mariadb-dump -uroot -pHJVH628h-BIIBUé3-biibuHbé! Airbnb > /root/Backup-$(date +%F).sql
+
 echo "Sauvegarde terminée"

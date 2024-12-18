@@ -8,7 +8,7 @@ CREATE TABLE `logement` (
   `image` varchar(255),
   `description` text,
   `nb_rooms` decimal(10,2),
-  `surface` decimal(10,2),
+  `surface` decimal(10,2)
 );
 
 CREATE TABLE `users` (
@@ -42,7 +42,6 @@ CREATE TABLE `type_logement` (
 CREATE TABLE `equipements` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `nom` varchar(100),
-  `description` text
 );
 
 CREATE TABLE `logement_equipements` (
@@ -73,3 +72,4 @@ ALTER TABLE `rentals` ADD FOREIGN KEY (`logement_id`) REFERENCES `logement` (`id
 ALTER TABLE `logement_equipements` ADD FOREIGN KEY (`logement_id`) REFERENCES `logement` (`id`);
 
 ALTER TABLE `logement_equipements` ADD FOREIGN KEY (`equipement_id`) REFERENCES `equipements` (`id`);
+

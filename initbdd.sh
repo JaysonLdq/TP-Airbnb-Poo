@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo docker exec mariadb /root/restore.sh
+sudo docker exec HavenlyDB3 /root/restore.sh

@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo docker exec mariadb /root/backup.sh
+docker exec HavenlyDB3 sh /root/backup.sh
