@@ -1,14 +1,14 @@
 <h1>Détails de votre logement</h1>
 
 <div class="logement-details">
-    <img src="/image/<?php echo htmlspecialchars($logement->getImage()); ?>" alt="Image du logement">
+    <img src="/image/<?php echo htmlspecialchars($logement->getImage() ?? 'default.jpg'); ?>" alt="Image du logement">
     <div class="info-content">
-        <h3><?php echo htmlspecialchars($logement->getAdresseId()); ?></h3>
-        <p><?php echo htmlspecialchars($logement->getDescription()); ?></p>
-        <p class="price"><?php echo htmlspecialchars($logement->getPrix()); ?> €</p>
+        <h3><?php echo htmlspecialchars($logement->getAdresseId() ?? 'Adresse inconnue'); ?></h3>
+        <p><?php echo htmlspecialchars($logement->getDescription() ?? 'Aucune description disponible.'); ?></p>
+        <p class="price"><?php echo htmlspecialchars($logement->getPrix() ?? 'N/A'); ?> €</p>
         <!-- Ajouter les informations supplémentaires -->
-        <p>Surface : <?php echo htmlspecialchars($logement->getSurface()); ?> m²</p>
-        <p>Nombre de pièces : <?php echo htmlspecialchars($logement->getNbRooms()); ?></p>
+        <p>Surface : <?php echo htmlspecialchars($logement->getSurface() ?? 'N/A'); ?> m²</p>
+        <p>Nombre de pièces : <?php echo htmlspecialchars($logement->getNbRooms() ?? 'N/A'); ?></p>
     </div>
 </div>
 
@@ -25,12 +25,11 @@
     </thead>
     <tbody>
         <?php foreach ($rentals as $rental): ?>
-           
             <tr>
-                <td><?php echo htmlspecialchars($rental['user_id']); ?></td>
-                <td><?php echo htmlspecialchars($rental['logement_id']); ?></td>
-                <td><?php echo htmlspecialchars($rental['rental_date']); ?></td>
-                <td><?php echo htmlspecialchars($rental['end_date']); ?></td>
+                <td><?php echo htmlspecialchars($rental['user_id'] ?? 'Utilisateur inconnu'); ?></td>
+                <td><?php echo htmlspecialchars($rental['logement_id'] ?? 'Logement inconnu'); ?></td>
+                <td><?php echo htmlspecialchars($rental['rental_date'] ?? 'Date inconnue'); ?></td>
+                <td><?php echo htmlspecialchars($rental['end_date'] ?? 'Date inconnue'); ?></td>
             </tr>
         <?php endforeach; ?>
     </tbody>
